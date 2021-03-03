@@ -193,7 +193,7 @@ label {
   font-size: 17px;
   font-weight: normal;
   display: inline-block;
-  margin-bottom: 11px;
+  margin: 11px 0;
 }
 input {
   padding: 8px;
@@ -296,6 +296,14 @@ input[data-error]::after {
   left: 21%;
   top: 19%;
 }
+
+.errorMessageInput {
+  font-size: 0.55em;
+  color: red;
+  display:block;
+  line-height:2em;
+}
+
 .close {
   position: absolute;
   right: 15px;
@@ -325,7 +333,7 @@ input[data-error]::after {
 .btn-signup {
   background: #fe142f;
   display: block;
-  margin: 0 auto;
+  margin: 1rem auto;
   border-radius: 7px;
   font-size: 1rem;
   padding: 12px 82px;
