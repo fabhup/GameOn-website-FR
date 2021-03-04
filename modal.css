@@ -11,18 +11,31 @@
 /* Landing Page */
 
 html {
-  font-size: 1.5vw;
+  font-size: 1.2vmax;
+  max-width:1500px;
+  margin: 0 auto;
 }
 
 body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
   margin: 0 auto;
+}
+
+header {
+  position:fixed;
+  top: 0;
+  height:10rem;
+  width: 100%;
+  z-index: 99;
+  margin-bottom: 1rem;
+  max-width: 1300px;
+  background-color: white;
+  padding:1rem;
 }
 
 p {
@@ -40,15 +53,22 @@ img {
 }
 .header-logo {
     float: left;
-    width: 20rem;
-}
+    width: 8rem;
+    position: absolute;
+    left:2.5rem;
+    z-index: 999;
+  }
 .main-navbar {
     float: right;
+    max-width: 800px;
+
 }
 
 .topnav img {
   width:100%;
-  margin-left: 3vw;
+  vertical-align: center;
+  margin: 5px;
+
 }
 
 .topnav a {
@@ -56,10 +76,10 @@ img {
   display: block;
   color: #000000;
   text-align: center;
-  padding: 12px 12px;
+  padding: 10px 12px;
   margin: 5px;
   text-decoration: none;
-  font-size: 1.5vw;
+  font-size: 0.8rem;
   font-family: Roboto, sans-serif;
 }
 
@@ -81,15 +101,15 @@ img {
 
 @media screen and (max-width: 768px) {
   .topnav {
-    margin: 6vw 4vw 2vw;
+    margin: 6vw 0vw 2vw;
+    flex-wrap: nowrap;
+    display:flex;
   }
   .topnav a {display: none;}
   .topnav a.icon {
-    float: right;
     display: block;
     color:red;
     font-size: 6vw;
-    margin: 0px;
     padding: 0rem 1rem;
   }
   .topnav a.icon:hover {
@@ -98,17 +118,31 @@ img {
 }
 
 @media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;}
+  .main-navbar {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    background-color: white;
+    min-width:100%;
+  }
+  .topnav.responsive {position: relative;
+    border-bottom: 3px solid red;
+    box-shadow: 10px 20px 0px white;}
   .topnav.responsive .icon {
-    position: absolute;
-    right: -5rem;
-    top: 0;
+    align-self:flex-end;
+    order:-2;
+    font-size: 6vw;
   }
   .topnav.responsive a {
     float: none;
     display: block;
     text-align: left;
+    font-size: 4vw;
   }
+  .topnav.responsive .main-navbar {
+    min-width:100%;
+  }
+
 }
 
  /* @media screen and (max-width: 540px) {
@@ -124,10 +158,11 @@ main {
   font-size: 130%;
   font-weight: bolder;
   color: black;
-  padding-top: 0.5vw;
+  padding-top: 2rem;
   padding-left: 2vw;
   padding-right: 2vw;
   margin: 1px 20px 15px;
+  margin-top:10rem;
   border-radius: 2rem;
   text-align: justify;
 }
@@ -177,7 +212,7 @@ main {
 .bground {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 99;
   left: 0;
   top: 0;
   height: 100%;
@@ -189,7 +224,7 @@ main {
 .content {
   margin: 5% auto;
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
   background: #232323;
@@ -198,17 +233,19 @@ main {
   position: relative;
   top:8rem;
   color: #fff;
-  min-height:90%;
+  display:flex;
+  justify-content: flex-start;
+  align-items:flex-start;
 }
 
 .modal-body {
   padding: 15px 8%;
   margin: 15px;
-  min-height: 50rem;
   display:flex;
   justify-content: center;
   flex-direction: column;
   align-items:center;
+  min-height: 50vmin;
 }
 
 label {
@@ -350,9 +387,9 @@ input[data-error]::after {
 .btn-signup {
   background: #fe142f;
   display: block;
-  margin: 1rem auto;
+  margin: 30px auto;
   border-radius: 7px;
-  font-size: 1.2rem;
+  font-size: 1.2em;
   padding: 12px 82px;
   color: #fff;
   cursor: pointer;
@@ -361,7 +398,7 @@ input[data-error]::after {
 
 .btn-close-confirm {
   margin: 0 auto;
-  position: fixed;
+  position: absolute;
   bottom: 4rem;
   left: 0;
   right: 0;
@@ -370,8 +407,8 @@ input[data-error]::after {
 .modal-confirm-message {
   display: none;
   margin: 2em 0em;
-  height:100%;
-  font-size: 2rem;
+  height:90%;
+  font-size: 2.5vmin;
   text-align: center;
 }
 
@@ -454,7 +491,7 @@ input[data-error]::after {
   font-size: 16px;
 }
 .hero-section {
-  min-height: 93vh;
+  min-height: 50vh;
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -484,7 +521,7 @@ input[data-error]::after {
   z-index: 1;
 }
 .hero-headline {
-  font-size: 6rem;
+  font-size: 7vmin;
   font-weight: normal;
   white-space: nowrap;
 }
@@ -528,7 +565,7 @@ footer {
 @media screen and (max-width: 768px) {
 
   main {
-    margin: 1px 20px 0px;
+    margin: 10rem 20px 0px;
   }
   .main-navbar {
     z-index: 99;
@@ -538,6 +575,7 @@ footer {
     box-shadow: unset;
     min-height: 70vh;
   }
+
   .hero-content {
     background: #fff;
     color: #000;
@@ -551,7 +589,7 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 6rem;
+    font-size: 8vmin;
     white-space: normal;
   }
   .hero-text {
