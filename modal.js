@@ -12,7 +12,9 @@ const modalBg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalClose = document.querySelectorAll(".close");
-const formRegister = document.querySelector("#form-register");
+const modalForm = document.querySelector("#modal-form");
+const modalConfirmMessage = document.querySelectorAll(".modal-confirm-message");
+const modalBtnCloseConfirm = document.querySelectorAll(".btn-close-confirm");
 
 // Input Elements
 const firstnameInput = document.getElementById("firstname");
@@ -52,10 +54,19 @@ class InputValidation {
 // Functions for modal form actions
 function launchModal() {
   modalBg.style.display = "block";
+  modalForm.style.display = "block";
+  modalConfirmMessage.forEach((elt) => elt.style.display = "none");
 }
+
 function closeModal() {
   modalBg.style.display = "none";
 }
+
+function displayConfirmMessageModal() {
+  modalForm.style.display = "none";
+  modalConfirmMessage.forEach((elt) => elt.style.display = "flex");
+
+} 
 
 // Functions for data validation
 
@@ -98,12 +109,13 @@ function isRadioChecked(arrayElementsRadio) {
 * @param {string} errorMessage 
 */
 function addErrorMessageInput(inputElement, errorMessage) {
-  if (inputElement.parentElement.lastChild.className != "errorMessageInput") {
-    var span = document.createElement("span");
-    span.textContent = errorMessage;
-    span.className = "errorMessageInput";
-    inputElement.parentElement.appendChild(span);
-  }
+  // if (inputElement.parentElement.getAttribute("data-error-visible") == false) {
+    // var span = document.createElement("span");
+    // span.textContent = errorMessage;
+    // span.className = "errorMessageInput";
+    inputElement.parentElement.setAttribute("data-error", errorMessage);
+    inputElement.parentElement.setAttribute("data-error-visible", true);
+  // }
 };
 
 /**
@@ -112,22 +124,24 @@ function addErrorMessageInput(inputElement, errorMessage) {
 * @param {element} inputElement 
 */
 function removeErrorMessageInput(inputElement) {
-  if (inputElement.parentElement.lastChild.className == "errorMessageInput") {
-    inputElement.parentElement.lastChild.remove();
+  if (inputElement.parentElement.getAttribute("data-error-visible") == "true") {
+    inputElement.parentElement.setAttribute("data-error-visible", false);
   }
 };
 
 // Launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 modalClose.forEach((elt) => elt.addEventListener("click", closeModal));
+modalBtnCloseConfirm.forEach((btn) => btn.addEventListener("click", closeModal));
 
 /** Launch form validation */
-formRegister.addEventListener("submit", function(e) {
+modalForm.addEventListener("submit", function(e) {
   
   e.preventDefault();
 
   const locationInputsChecked = document.querySelectorAll("input[type=radio][name=location]:checked");
   arrayInputValidationInstances = [];
+  let isValidForm = true;
 
   let FirstnameValidation = new InputValidation (
     firstnameInput,
@@ -174,15 +188,18 @@ formRegister.addEventListener("submit", function(e) {
   for(let InputValidationInstance of arrayInputValidationInstances) { 
     if (InputValidationInstance.validationTest) {
       console.log("validation success for " + InputValidationInstance.inputElement);
-      InputValidationInstance.inputElement.style.color = "green";
       removeErrorMessageInput(InputValidationInstance.inputElement);
     }
     else {
       console.log(InputValidationInstance.errorMessage);
-      InputValidationInstance.inputElement.style.color = "red";
       addErrorMessageInput(InputValidationInstance.inputElement,InputValidationInstance.errorMessage);
+      isValidForm = false;
     }
   };
+
+  if (isValidForm) {
+    displayConfirmMessageModal();
+  }
 });
 
 
@@ -300,3 +317,29 @@ formRegister.addEventListener("submit", function(e) {
 //     // isValid = false;
 //   }
 // })
+
+// /**
+// * Add an Error Message after an input Element
+// * 
+// * @param {element} inputElement 
+// * @param {string} errorMessage 
+// */
+// function addErrorMessageInput(inputElement, errorMessage) {
+//   if (inputElement.parentElement.lastChild.className != "errorMessageInput") {
+//     var span = document.createElement("span");
+//     span.textContent = errorMessage;
+//     span.className = "errorMessageInput";
+//     inputElement.parentElement.appendChild(span);
+//   }
+// };
+
+// /**
+// * Remove an Error Message after an input Element
+// * 
+// * @param {element} inputElement 
+// */
+// function removeErrorMessageInput(inputElement) {
+//   if (inputElement.parentElement.lastChild.className == "errorMessageInput") {
+//     inputElement.parentElement.lastChild.remove();
+//   }
+// };

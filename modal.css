@@ -10,6 +10,10 @@
 }
 /* Landing Page */
 
+html {
+  font-size: 1.5vw;
+}
+
 body {
   margin: 0;
   display: flex;
@@ -32,14 +36,21 @@ img {
 
 .topnav {
   overflow: hidden;
-  margin: 3.5%;
+  margin: 6vw 4vw;
 }
 .header-logo {
     float: left;
+    width: 20rem;
 }
 .main-navbar {
     float: right;
 }
+
+.topnav img {
+  width:100%;
+  margin-left: 3vw;
+}
+
 .topnav a {
   float: left;
   display: block;
@@ -48,7 +59,7 @@ img {
   padding: 12px 12px;
   margin: 5px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 1.5vw;
   font-family: Roboto, sans-serif;
 }
 
@@ -69,10 +80,20 @@ img {
 }
 
 @media screen and (max-width: 768px) {
+  .topnav {
+    margin: 6vw 4vw 2vw;
+  }
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
+    color:red;
+    font-size: 6vw;
+    margin: 0px;
+    padding: 0rem 1rem;
+  }
+  .topnav a.icon:hover {
+    background-color: transparent;
   }
 }
 
@@ -80,7 +101,7 @@ img {
   .topnav.responsive {position: relative;}
   .topnav.responsive .icon {
     position: absolute;
-    right: 0;
+    right: -5rem;
     top: 0;
   }
   .topnav.responsive a {
@@ -90,16 +111,14 @@ img {
   }
 }
 
-
-
- @media screen and (max-width: 540px) {
+ /* @media screen and (max-width: 540px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
     margin-top: -15px;
-  }
-} 
+  } 
+} */
 
 main {
   font-size: 130%;
@@ -111,8 +130,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -179,13 +196,19 @@ main {
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  top:8rem;
   color: #fff;
-  padding-top: 10px;
+  min-height:90%;
 }
 
 .modal-body {
   padding: 15px 8%;
-  margin: 15px auto;
+  margin: 15px;
+  min-height: 50rem;
+  display:flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items:center;
 }
 
 label {
@@ -215,13 +238,14 @@ input {
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
-  text-align: right;
-  line-height: 0.3;
+  text-align: left;
+  line-height: 0em;
   opacity: 0;
   transition: 0.3s;
 }
 .formData[data-error-visible="true"]::after {
   opacity: 1;
+  line-height: 0.4em;
 }
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
@@ -297,13 +321,6 @@ input[data-error]::after {
   top: 19%;
 }
 
-.errorMessageInput {
-  font-size: 0.55em;
-  color: red;
-  display:block;
-  line-height:2em;
-}
-
 .close {
   position: absolute;
   right: 15px;
@@ -335,12 +352,36 @@ input[data-error]::after {
   display: block;
   margin: 1rem auto;
   border-radius: 7px;
-  font-size: 1rem;
+  font-size: 1.2rem;
   padding: 12px 82px;
   color: #fff;
   cursor: pointer;
   border: 0;
 }
+
+.btn-close-confirm {
+  margin: 0 auto;
+  position: fixed;
+  bottom: 4rem;
+  left: 0;
+  right: 0;
+}
+
+.modal-confirm-message {
+  display: none;
+  margin: 2em 0em;
+  height:100%;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.modal-confirm-message br {
+  display: block;
+  margin: 20px 0;
+  line-height: 2rem;
+  content: "";
+}
+
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -419,7 +460,6 @@ input[data-error]::after {
   grid-template-columns: repeat(12, 1fr);
   overflow: hidden;
   box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
-  margin-bottom: 10px;
 }
 .hero-content {
   padding: 51px 67px;
@@ -457,7 +497,6 @@ input[data-error]::after {
 .btn-signup {
   outline: none;
   text-transform: capitalize;
-  font-size: 1.3rem;
   padding: 15px 23px;
   margin: 0;
   margin-top: 59px;
@@ -486,15 +525,24 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
+
+  main {
+    margin: 1px 20px 0px;
+  }
+  .main-navbar {
+    z-index: 99;
+  }
   .hero-section {
     display: block;
     box-shadow: unset;
+    min-height: 70vh;
   }
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 0;
+    min-width:inherit;
   }
   .hero-content::after {
     content: unset;
@@ -503,24 +551,36 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 6rem;
     white-space: normal;
   }
   .hero-text {
     width: unset;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    margin-top: 20px;
   }
   .hero-img img {
     border-radius: 10px;
-    margin-top: 40px;
+    margin-top: 20px;
   }
+
+  .btn-submit,
+  .btn-signup {
+    font-size: 2rem;
+  }
+
   .hero-section > .btn-signup {
     display: block;
     margin: 32px auto 10px;
-    padding: 12px 35px;
+    padding: 10px 35px;
   }
+
+  .modal-confirm-message {
+    font-size: 4rem;
+  }
+  
   .copyrights {
-    margin-top: 50px;
+    margin-top: 10px;
     text-align: center;
   }
 }

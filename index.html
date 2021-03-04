@@ -17,9 +17,7 @@
       <img alt="logo" src="Logo.png" width="auto" height="auto" />
     </div>
     <div class="main-navbar">
-      
-      <a href="#" class="active"><span>Accueil</span></a>
-      <a href="#"><span>Détails de l'évènement</span></a>
+      <a href="#" class="active"><span>Détails de l'évènement</span></a>
       <a href="#"><span>À propos</span></a>
       <a href="#"><span>Contact</span></a>
       <a href="#"><span>Évènements passés</span></a>
@@ -57,7 +55,8 @@
           <span class="close"></span>
           <div class="modal-body">
             <form
-              id="form-register"
+              id="modal-form"
+              class="modal-form"
               name="reserve"
               action="index.html"
               method="POST"
@@ -200,6 +199,14 @@
                 value="C'est parti"
               />
             </form>
+            <div class="modal-confirm-message">
+              <span>Merci pour votre réservation! <br> Nous vous confirmons qu'elle a bien été prise en compte.</span>
+              <input
+                class="btn-submit button btn-close-confirm"
+                type="button"
+                value="Fermer"
+              />
+            </div>
           </div>
         </div>
       </div>
