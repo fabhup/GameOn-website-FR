@@ -259,6 +259,8 @@ input {
   padding: 8px;
   border: 0.8px solid #ccc;
   outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 .text-control {
   margin: 0;
@@ -282,7 +284,8 @@ input {
 }
 .formData[data-error-visible="true"]::after {
   opacity: 1;
-  line-height: 0.4em;
+  line-height: 1.5rem;
+  font-weight: 100;
 }
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
@@ -397,19 +400,24 @@ input[data-error]::after {
 }
 
 .btn-close-confirm {
-  margin: 0 auto;
-  position: absolute;
-  bottom: 4rem;
-  left: 0;
-  right: 0;
-}
+  padding: 12px 82px;
+  position:absolute;
+  bottom:1rem;
+ }
 
 .modal-confirm-message {
   display: none;
-  margin: 2em 0em;
-  height:90%;
-  font-size: 2.5vmin;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  margin: 8rem 0em;
+  height:90%;
+  font-size: 2.5vmax;
+}
+
+.modal-confirm-message span {
+  margin: 5rem 0;
 }
 
 .modal-confirm-message br {
@@ -575,6 +583,9 @@ footer {
     box-shadow: unset;
     min-height: 70vh;
   }
+  .content {
+    min-height: 87%;
+  }
 
   .hero-content {
     background: #fff;
@@ -614,7 +625,7 @@ footer {
   }
 
   .modal-confirm-message {
-    font-size: 4rem;
+    font-size: 2.5vmax;
   }
   
   .copyrights {
