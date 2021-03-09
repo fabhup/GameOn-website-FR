@@ -147,10 +147,6 @@ main {
   background: #3876ac;
 }
 
-.smFont {
-  /* font-size: 16px; */
-}
-
 .bground {
   display: none;
   position: fixed;
@@ -374,8 +370,9 @@ input[data-error]::after {
 .btn-close-confirm {
   bottom: 0;
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 5;
+  right: 5;
+  margin: 30px auto;
 }
 
 .modal-confirm-message {
@@ -693,6 +690,10 @@ footer {
 
   main {
     margin: 50px 20px 0px;
+  }
+
+  .content {
+    top: 40px;
   }
 }
 
