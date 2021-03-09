@@ -35,6 +35,7 @@ const errorMessageFirstnameLength = "Veuillez entrer 2 caractères ou plus pour 
 const errorMessageLastnameLength  = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
 const errorMessageEmailFormat = "Veuillez saisir un email valide.";
 const errorMessageBirthdateFormat = "Veuillez indiquer votre date de naissance au format jj/mm/aaaa";
+const errorMessageAgeMin = "Vous devez avoir 18 ans minimum pour vous inscrire.";
 const errorMessageQuantityFormat = "Veuillez indiquer un nombre de tournois joués (nombre entier positif)";
 const errorMessageLocationUnchecked  = "Veuillez sélectionner une ville.";
 const errorMessageTermsOfServiceUnchecked = "Vous devez vérifier que vous acceptez les termes et conditions."
@@ -129,6 +130,18 @@ function removeErrorMessageInput(inputElement) {
   }
 };
 
+/**
+* Calculate Age from Birthdate
+* 
+* @param {date} birthdate 
+*/
+function calculateAge(birthdate) { 
+  var dateOfBirth = new Date(birthdate);
+  var diffdateInMilliSeconds = Date.now() - dateOfBirth.getTime();
+  var ageDate = new Date(diffdateInMilliSeconds); 
+  return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
+
 // Launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 modalClose.forEach((elt) => elt.addEventListener("click", closeModal));
@@ -138,6 +151,7 @@ modalBtnCloseConfirm.forEach((btn) => btn.addEventListener("click", closeModal))
 modalForm.addEventListener("submit", function(e) {
   
   e.preventDefault();
+  console.log(calculateAge(birthdateInput.value));
 
   const locationInputsChecked = document.querySelectorAll("input[type=radio][name=location]:checked");
   arrayInputValidationInstances = [];
@@ -166,6 +180,14 @@ modalForm.addEventListener("submit", function(e) {
     isValidRegex(birthdateInput.value, birthdateRegexFormat),
     errorMessageBirthdateFormat
     );
+  
+  if (BirthdateValidation.validationTest) {
+    let AgeValidation = new InputValidation (
+      birthdateInput,
+      calculateAge(birthdateInput.value)>=18,
+      errorMessageAgeMin
+      );
+    }
   
   let QuantityValidation = new InputValidation (
     quantityInput,
@@ -201,145 +223,3 @@ modalForm.addEventListener("submit", function(e) {
     displayConfirmMessageModal();
   }
 });
-
-
-// /**
-//  * Check if the Firstname input is valid
-//  * 
-//  * @return {boolean}
-//  */
-// function isFirstnameValid() {
-//   if(isValidLength(firstnameInput.value, 2, 99)) {
-//     firstnameInput.style.color = "green";
-//     return true;
-//   }
-//   else {
-//     firstnameInput.style.color = "red";
-//     addErrorMessageInput(firstnameInput,errorMessageFirstnameLength);
-//     return false;
-//   }
-// }
-
-// /**
-//  * Check if the LastName input is valid
-//  * 
-//  * @return {boolean}
-//  */
-// function isLastnameValid() {
-//   if(isValidLength(lastnameInput.value, 2, 99)) {
-//     lastnameInput.style.color = "green";
-//     return true;
-//   }
-//   else {
-//     lastnameInput.style.color = "red";
-//     addErrorMessageInput(lastnameInput,errorMessageLastnameLength);
-//     return false;
-//   }
-// }
-
-// /**
-//  * Check if the Email input is valid
-//  * 
-//  * @return {boolean}
-//  */
-// function isEmailValid() {
-//   if(isValidRegex(emailInput.value, emailRegexFormat)) {
-//     emailInput.style.color = "green";
-//     return true;
-//   }
-//   else {
-//     emailInput.style.color = "red";
-//     addErrorMessageInput(emailInput,errorMessageEmailFormat);
-//     return false;
-//   } 
-// }
-
-// /**
-//  * Check if the Birthdate input is valid
-//  * 
-//  * @return {boolean}
-//  */
-// function isBirthdateValid() {
-//   return isValidRegex(birthdateInput.value, birthdateRegexFormat); 
-// }
-
-// /**
-//  * Check if the Quantity input is valid
-//  * 
-//  * @return {boolean}
-//  */
-// function isQuantityValid() {
-//   return isValidRegex(quantityInput.value, integerPositiveRegexFormat); 
-// }
-
-// /**
-//  * Check if a the TermsOfService Checkbox is checked
-//  * 
-//  * @return {boolean}
-//  */
-// function isTermsOfServiceChecked() {
-//   return termsOfServiceInput.checked;
-// }
-
-  // let isValidForm = isFirstnameValid() && isLastnameValid() && isEmailValid() && isBirthdateValid() && isQuantityValid()  && isRadioLocationChecked() && isTermsOfServiceChecked();
-//   if (isValidForm) {
-//     console.log('success');
-//   } else {
-//     console.log('error');
-//   };
-// });
-
-
-// /** Validation of the form */
-// formRegister.addEventListener("submit", function(e) {
-//   e.preventDefault();
-//   document.querySelectorAll('.errorMessageInput').forEach(e => e.remove()); /** delete previous error messages */
-//   let isValidForm = isFirstnameValid() && isLastnameValid() && isEmailValid() && isBirthdateValid() && isQuantityValid()  && isRadioLocationChecked() && isTermsOfServiceChecked();
-//   if (isValidForm) {
-//     console.log('success');
-//   } else {
-//     console.log('error');
-//   };
-// });
-
-// const newElt = document.createElement("div");
-// let elt = document.getElementById("main");
-
-// elt.appendChild(newElt);
-
-// firstNameInput.addEventListener("input",function(event) {
-//   var valueInput = event.target.value;
-//   if (isValidLength(valueInput, 2, 99)) {
-//     firstNameInput.style.color = "green";
-//     // isValid = true;
-//   } else {
-//     firstNameInput.style.color = "red";
-//     // isValid = false;
-//   }
-// })
-
-// /**
-// * Add an Error Message after an input Element
-// * 
-// * @param {element} inputElement 
-// * @param {string} errorMessage 
-// */
-// function addErrorMessageInput(inputElement, errorMessage) {
-//   if (inputElement.parentElement.lastChild.className != "errorMessageInput") {
-//     var span = document.createElement("span");
-//     span.textContent = errorMessage;
-//     span.className = "errorMessageInput";
-//     inputElement.parentElement.appendChild(span);
-//   }
-// };
-
-// /**
-// * Remove an Error Message after an input Element
-// * 
-// * @param {element} inputElement 
-// */
-// function removeErrorMessageInput(inputElement) {
-//   if (inputElement.parentElement.lastChild.className == "errorMessageInput") {
-//     inputElement.parentElement.lastChild.remove();
-//   }
-// };
