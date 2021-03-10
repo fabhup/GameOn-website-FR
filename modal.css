@@ -21,7 +21,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: var(--font-default);
-  font-size: 1rem; 
+  font-size: 1rem;
   max-width: 1300px;
   margin: 0 auto;
 }
@@ -217,7 +217,7 @@ input {
 }
 
 .formData--location {
-  display:flex;
+  display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   margin-bottom: 8px;
@@ -227,7 +227,7 @@ input {
   content: attr(data-error);
   font-size: 0.8rem;
   color: #e54858;
-  display: block;
+  width: 100%;
   margin-top: 7px;
   margin-bottom: 7px;
   text-align: left;
@@ -355,7 +355,7 @@ input[data-error]::after {
 
 .btn-submit,
 .btn-signup,
-.btn-close-confirm  {
+.btn-close-confirm {
   background: #fe142f;
   display: block;
   margin: 30px auto;
@@ -370,8 +370,6 @@ input[data-error]::after {
 .btn-close-confirm {
   bottom: 0;
   position: absolute;
-  left: 5;
-  right: 5;
   margin: 30px auto;
 }
 
@@ -556,7 +554,6 @@ footer {
 }
 
 @media screen and (max-width: 850px) {
-  
   .header-logo {
     width: 30vw;
   }
@@ -694,6 +691,10 @@ footer {
 
   .content {
     top: 40px;
+  }
+
+  .topnav.responsive a {
+    font-size: 3vw;
   }
 }
 
