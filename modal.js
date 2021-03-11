@@ -1,12 +1,3 @@
-function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-}
-
 // DOM Elements
 const modalBg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
@@ -51,7 +42,15 @@ const errorMessageTermsOfServiceUnchecked =
 // Classes Validation Objects
 let arrayInputValidationInstances = [];
 
+/**
+ * class InputValidation : class to create objects for validate value of an inputElement  
+ * */
 class InputValidation {
+  /**
+   * @param {element} inputElement [input element of the DOM]
+   * @param {function} validationTest [function applied for the input validation (must return a boolean]
+   * @param {string} errorMessage [string message to display if validationTest is false]
+   */
   constructor(inputElement, validationTest, errorMessage) {
     this.inputElement = inputElement;
     this.validationTest = validationTest;
@@ -60,26 +59,47 @@ class InputValidation {
   }
 }
 
+// Functions for change class attribut on click 
+/**
+ * function editNav() : function to add or remove the class "responsive" to the "#myTopnav" element 
+ */
+function editNav() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+
 // Functions for modal form actions
+/**
+ * function launchModal() : function to display the modal form 
+ */
 function launchModal() {
   modalBg.style.display = "block";
   modalForm.style.display = "block";
   modalConfirmMessage.forEach((elt) => (elt.style.display = "none"));
 }
 
+/**
+ * function closeModal() : function to close the modal form 
+ */
 function closeModal() {
   modalBg.style.display = "none";
 }
 
+/**
+ * function displayConfirmMessageModal() : function to display the confirmation message after form validation
+ */
 function displayConfirmMessageModal() {
   modalForm.style.display = "none";
   modalConfirmMessage.forEach((elt) => (elt.style.display = "flex"));
 }
 
 // Functions for data validation
-
 /**
- * Check if the length of a string is between minLength and maxLength
+ * function isValidLength() : function to check if the length of a string is between minLength and maxLength
  *
  * @param {string} string
  * @param {number} minLength
@@ -91,7 +111,7 @@ function isValidLength(string, minLength, maxLength) {
 }
 
 /**
- * Check if a string respects a regex format
+ * function isValidRegex() : function to check if a string respects a regex format
  *
  * @param {string} string
  * @param {string} regexFormat
@@ -102,7 +122,7 @@ function isValidRegex(string, regexFormat) {
 }
 
 /**
- * Check if a Radio Button Location is checked
+ * function isRadioChecked() : function to check if one radio button location is checked
  *
  * @return {boolean}
  */
@@ -111,23 +131,18 @@ function isRadioChecked(arrayElementsRadio) {
 }
 
 /**
- * Add an Error Message after an input Element
+ * function addErrorMessageInput() : function to add an Error Message after an input Element
  *
  * @param {element} inputElement
  * @param {string} errorMessage
  */
 function addErrorMessageInput(inputElement, errorMessage) {
-  // if (inputElement.parentElement.getAttribute("data-error-visible") == false) {
-  // var span = document.createElement("span");
-  // span.textContent = errorMessage;
-  // span.className = "errorMessageInput";
   inputElement.parentElement.setAttribute("data-error", errorMessage);
   inputElement.parentElement.setAttribute("data-error-visible", true);
-  // }
 }
 
 /**
- * Remove an Error Message after an input Element
+ * function removeErrorMessageInput() : function to remove an Error Message after an input Element
  *
  * @param {element} inputElement
  */
@@ -138,7 +153,7 @@ function removeErrorMessageInput(inputElement) {
 }
 
 /**
- * Calculate Age from Birthdate
+ * function calculateAge() : function to calculate an age from a valid date
  *
  * @param {date} birthdate
  */
@@ -149,24 +164,25 @@ function calculateAge(birthdate) {
   return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
-// Launch modal event
+// Events to open or close the modal form (click events)
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 modalClose.forEach((elt) => elt.addEventListener("click", closeModal));
 modalBtnCloseConfirm.forEach((btn) =>
   btn.addEventListener("click", closeModal)
 );
 
-/** Launch form validation */
+// Event to validate the modal form (submit event)
 modalForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  console.log(calculateAge(birthdateInput.value));
 
+  // declaration and initialization of variables
   const locationInputsChecked = document.querySelectorAll(
     "input[type=radio][name=location]:checked"
   );
   arrayInputValidationInstances = [];
   let isValidForm = true;
-
+  
+  // creation of InputValidation objects
   let FirstnameValidation = new InputValidation(
     firstnameInput,
     isValidLength(firstnameInput.value, 2, 99),
@@ -216,15 +232,16 @@ modalForm.addEventListener("submit", function (e) {
     termsOfServiceInput.checked,
     errorMessageTermsOfServiceUnchecked
   );
-
+  
+  /* loop to test each validationTest
+    - if the validationTest is true : the function removeErrorMessageInput() is applied on the inputElement 
+    - if the validationTest is false : the function addErrorMessageInput() is applied on the inputElement
+    - if at least one validation is false : isValidForm is false
+  */   
   for (let InputValidationInstance of arrayInputValidationInstances) {
     if (InputValidationInstance.validationTest) {
-      console.log(
-        "validation success for " + InputValidationInstance.inputElement
-      );
       removeErrorMessageInput(InputValidationInstance.inputElement);
     } else {
-      console.log(InputValidationInstance.errorMessage);
       addErrorMessageInput(
         InputValidationInstance.inputElement,
         InputValidationInstance.errorMessage
@@ -232,7 +249,7 @@ modalForm.addEventListener("submit", function (e) {
       isValidForm = false;
     }
   }
-
+  // if isValidForm is true : the function displayConfirmMessageModal() is applied  
   if (isValidForm) {
     displayConfirmMessageModal();
   }
