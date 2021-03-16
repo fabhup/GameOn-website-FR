@@ -80,6 +80,7 @@ function launchModal() {
   modalBg.style.display = "block";
   modalForm.style.display = "block";
   modalConfirmMessage.forEach((elt) => (elt.style.display = "none"));
+  modalForm.reset();
 }
 
 /**
